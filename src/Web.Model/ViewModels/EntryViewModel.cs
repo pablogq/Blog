@@ -2,24 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
+using System.Text; 
 #endregion
 
-namespace Blog.ServiceModel
+namespace Blog.Web.Model.ViewModels
 {
-    [DataContract]
-    public class EntryContract
+    public class EntryViewModel : LayoutViewModel
     {
-        [DataMember]
         public string Slug { get; set; }
-        [DataMember]
         public string Title { get; set; }
-        [DataMember]
         public string Content { get; set; }
-        [DataMember]
         public string Author { get; set; }
-        [DataMember]
         public DateTime CreatedAt { get; set; }
     }
 }

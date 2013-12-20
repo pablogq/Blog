@@ -12,19 +12,20 @@ namespace Blog.Domain.Model
     {
         private readonly string slug;
         private string title;
-        private string markdown;
+        private string content;
         private string author;
 
-        public Entry(string slug, string title, string markdown, string author)
+        public Entry(string slug, string title, string content, string author)
         {
             Guard.IsNotNullOrEmpty(slug, "slug");
 
             this.slug = slug.ToLowerInvariant();
             this.Title = title;
-            this.Markdown = markdown;
+            this.Content = content;
             this.Author = author;
         }
 
+        [Id]
         public string Slug { get { return this.slug; } }
 
         public string Title 
@@ -38,20 +39,20 @@ namespace Blog.Domain.Model
             }
         }
 
-        public string Markdown
+        public string Content
         {
-            get { return this.markdown; }
+            get { return this.content; }
             set
             {
-                Guard.IsNotNullOrEmpty(value, "markdown");
+                Guard.IsNotNullOrEmpty(value, "content");
 
-                this.markdown = value;
+                this.content = value;
             }
         }
 
         public string Author
         {
-            get { return this.markdown; }
+            get { return this.author; }
             set
             {
                 Guard.IsNotNullOrEmpty(value, "author");
@@ -67,7 +68,7 @@ namespace Blog.Domain.Model
             Guard.IsNotNull(entry, "entry");
 
             this.Title = entry.Title;
-            this.Markdown = entry.Markdown;
+            this.Content = entry.Content;
             this.Author = entry.Author;
         }
 

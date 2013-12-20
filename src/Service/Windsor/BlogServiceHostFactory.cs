@@ -2,6 +2,7 @@
 using Castle.Facilities.WcfIntegration;
 using Castle.MicroKernel;
 using Castle.Windsor;
+using Castle.Windsor.Installer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace Blog.Service.Windsor
         {
             IWindsorContainer container = new WindsorContainer();
             container.AddFacility<WcfFacility>();
+            container.Install(FromAssembly.This());
             return container.Kernel;
         }
     }

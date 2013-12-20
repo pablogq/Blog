@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 #endregion
 
 namespace Blog.ServiceModel
 {
-    [Serializable]
+    [DataContract]
     public class Response
     {
         public readonly static Response Valid = new Response();
@@ -25,6 +26,7 @@ namespace Blog.ServiceModel
         }
 
         public bool Success { get { return this.Messages.IsNullOrEmpty(); } }
+        [DataMember]
         public IEnumerable<string> Messages { get; set; }
     }
 }

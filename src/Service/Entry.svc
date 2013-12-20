@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="Blog.ServiceModel.IEntryService" CodeBehind="Blog.Service.EntryService.cs" Factory="Blog.Service.Windsor.BlogServiceHostFactory" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Blog.Service.EntryService" CodeBehind="Blog.Service.EntryService.cs" Factory="Blog.Service.Windsor.BlogServiceHostFactory" %>

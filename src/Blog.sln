@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.AutoMapper", "Infrastructure.AutoMapper\Infrastructure.AutoMapper.csproj", "{4853CA76-5FFA-4574-9573-A422802B6122}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Markdown", "Infrastructure.Markdown\Infrastructure.Markdown.csproj", "{15B3696E-CD46-43B3-BB0F-1C0DC0334599}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{4853CA76-5FFA-4574-9573-A422802B6122}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4853CA76-5FFA-4574-9573-A422802B6122}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4853CA76-5FFA-4574-9573-A422802B6122}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15B3696E-CD46-43B3-BB0F-1C0DC0334599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15B3696E-CD46-43B3-BB0F-1C0DC0334599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15B3696E-CD46-43B3-BB0F-1C0DC0334599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15B3696E-CD46-43B3-BB0F-1C0DC0334599}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

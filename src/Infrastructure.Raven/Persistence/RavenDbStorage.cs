@@ -1,9 +1,11 @@
 ﻿#region Libraries
+using Blog.Domain.Model;
 using Blog.Infrastructure.Persistence;
 using Raven.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 #endregion
 
@@ -41,7 +43,7 @@ namespace Blog.Infrastructure.Raven.Persistence
         {
             Guard.IsNotNull(entity, "entity");
 
-            this.session.Store(entity);
+            this.session.Store(entity, this.GetId(entity));
         }
 
         public void Remove<TEntity>(TEntity entity)
@@ -49,6 +51,23 @@ namespace Blog.Infrastructure.Raven.Persistence
             Guard.IsNotNull(entity, "entity");
 
             this.session.Delete(entity);
+        }
+
+        protected virtual string GetId<TEntity>(TEntity entity)
+        {
+            Guard.IsNotNull(entity, "entity");
+
+            PropertyInfo propertyMarkedAsId = entity.GetType()
+                                                    .GetProperties()
+                                                    .FirstOrDefault(property => property.GetCustomAttributes<IdAttribute>().Any());
+            if (propertyMarkedAsId.IsNull()) 
+            {
+                throw new ArgumentException("The entity {0} doesn't contain any field marked with the Id attribute.".FormatWith(entity.GetType().FullName));
+            }
+            object idValue = propertyMarkedAsId.GetValue(entity, null);
+            Guard.IsNotNull(idValue, "id");
+
+            return idValue.ToString();
         }
     }
 }

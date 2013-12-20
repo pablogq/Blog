@@ -3,6 +3,7 @@ using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using Castle.Facilities.WcfIntegration;
 using Raven.Client;
 using Raven.Client.Document;
 using System;
@@ -25,7 +26,7 @@ namespace Blog.Service.Windsor
                                Component.For<IDocumentSession>()
                                         .UsingFactoryMethod(CreateDocumentSession)
                                         .OnDestroy(ReleaseDocumentSession)
-                                        .LifeStyle.PerWebRequest);
+                                        .LifeStyle.PerWcfOperation());
         }
 
         private static void Initialize(IKernel kernel, IDocumentStore store)

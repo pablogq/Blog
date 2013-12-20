@@ -18,13 +18,13 @@ namespace Blog.Service.Windsor.Installers
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.AddFacility<TypedFactoryFacility>();
-            container.Register(Classes.FromAssembly(KnownAssemblies.ServiceModel)
+            container.Register(Classes.FromThisAssembly()
                                       .BasedOn(KnownTypes.Service)
-                                      .Configure(component => component.AsWcfService(new DefaultServiceModel()))
+                                      .Configure(component => component.AsWcfService(new DefaultServiceModel().Hosted()))
                                       .LifestyleTransient());
 
             Predicate<AssemblyName> assemblyFilter = assembly => assembly.FullName.StartsWith("Blog.");
-            Predicate<Type> typeFilter = type => type.Namespace.Contains("Infrastructure");
+            Predicate<Type> typeFilter = type => type.Namespace.Contains("Infrastructure") || type.Namespace.Contains("Domain.Services");
             container.Register(Classes.FromAssemblyInDirectory(new AssemblyFilter("bin").FilterByName(assemblyFilter))
                                       .Where(typeFilter)
                                       .WithServiceAllInterfaces()

@@ -42,13 +42,17 @@
     <Compile Include="Collections\EmptyPager.cs" />
     <Compile Include="Collections\Pager.cs" />
     <Compile Include="Collections\PagerParameters.cs" />
+    <Compile Include="ContentTransformator.cs" />
     <Compile Include="EmptyMaybe.cs" />
+    <Compile Include="Extensions\CustomAttributeProviderExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\GenericTypeExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Guard.cs" />
+    <Compile Include="IContentTransformator.cs" />
     <Compile Include="IMapper.cs" />
     <Compile Include="Maybe.cs" />
+    <Compile Include="NullContentTransformator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemTime.cs" />
   </ItemGroup>

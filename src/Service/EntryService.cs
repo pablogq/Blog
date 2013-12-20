@@ -51,8 +51,15 @@ namespace Blog.Service
 
         public Response Delete(string slug)
         {
-            this.domain.Delete(slug);
-            return Response.Valid;
+            try
+            {
+                this.domain.Delete(slug);
+                return Response.Valid;
+            }
+            catch (Exception ex)
+            {
+                return new Response(ex.Message);
+            }
         }
     }
 }

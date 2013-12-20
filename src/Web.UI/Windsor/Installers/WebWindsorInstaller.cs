@@ -1,6 +1,7 @@
 ﻿#region Libraries
 using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using System;
@@ -16,7 +17,8 @@ namespace Blog.Web.UI.Windsor.Installers
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.AddFacility<TypedFactoryFacility>();
+            container.AddFacility<TypedFactoryFacility>()
+                     .Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel, true));
             container.Register(Classes.FromAssembly(KnownAssemblies.WebModel)
                                       .BasedOn(KnownTypes.Controller)
                                       .LifestyleTransient());
@@ -27,6 +29,9 @@ namespace Blog.Web.UI.Windsor.Installers
                                       .Where(typeFilter)
                                       .WithServiceAllInterfaces()
                                       .LifestylePerWebRequest());
+
+            ContentTransformator.SetContentTransformator(() => container.Resolve<IContentTransformator>());
+
         }
     }
 }
