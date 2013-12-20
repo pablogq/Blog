@@ -12,9 +12,7 @@
 	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
 
 
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet" />
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     <link href="@this.Url.Content("~/Content/css/base.css")" rel="stylesheet" />
     @RenderSection("css", required: false)
 </head>
@@ -30,26 +28,22 @@
         </div>
         <div class="collapse navbar-collapse">
 
-
+            @using (this.Html.BeginForm("Search", "Index", FormMethod.Post, new { @class = "navbar-form navbar-right", role = "search" })) 
+            {
+                <div class="input-group" style="width:300px;">
+                    <input type="text" class="form-control" placeholder="Search..." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                    </span>
+                </div>
+            }
         </div>
 	</nav>
-    <nav>
-        <header>
-            <button class="btn">Redactar</button>
-        </header>
-        <ul>
-            <li><a>Panel</a></li>
-            <li><a>Borradores</a></li>
-            <li><a>Artículos</a></li>
-            <li><a>Ediciones</a></li>
-            <li><a class="active">Usuarios</a></li>
-        </ul>
-    </nav>
     <div class="container">
         @RenderBody()
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

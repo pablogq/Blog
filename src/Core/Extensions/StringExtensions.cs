@@ -2,7 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text; 
+using System.Text;
+using System.Text.RegularExpressions; 
 #endregion
 
 namespace Blog
@@ -84,6 +85,29 @@ namespace Blog
         public static bool Contains(this string @string, string value, StringComparison comparison)
         {
             return @string.IndexOf(value, comparison) >= 0;
+        }
+
+        /// <summary>
+        /// Creates a URL friendly slug from a string
+        /// </summary>
+        public static string ToUrlSlug(this string value)
+        {
+            //TODO: Create a strategy to generate the slug, so the strategy can be changed whenever is needed.
+            string originalValue = value;
+
+            // Repalce any characters that are not alphanumeric with hypen
+            value = Regex.Replace(value, "[^a-z^0-9]", "-", RegexOptions.IgnoreCase);
+
+            // Replace all double hypens with single hypen
+            string pattern = "--";
+            while (Regex.IsMatch(value, pattern))
+                value = Regex.Replace(value, pattern, "-", RegexOptions.IgnoreCase);
+
+            // Remove leading and trailing hypens ("-")
+            pattern = "^-|-$";
+            value = Regex.Replace(value, pattern, "", RegexOptions.IgnoreCase);
+
+            return value.ToLower();
         }
     }
 }

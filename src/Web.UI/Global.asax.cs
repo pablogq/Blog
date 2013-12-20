@@ -6,6 +6,7 @@ using Castle.Windsor.Installer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -32,6 +33,7 @@ namespace Blog.Web.UI
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("Content/{*pathInfo}");
 
             string[] namespaces = new[] { typeof(LayoutController).Namespace };
 
@@ -41,6 +43,9 @@ namespace Blog.Web.UI
                 defaults: new { controller = "Authentication", action = "Login" },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET", "POST") },
                 namespaces: namespaces);
+            routes.MapRoute("", "search", new { controller = "Search", action = "Index" });
+            routes.MapRoute("", "contact", new { controller = "Contact", action = "Index" });
+            routes.MapRoute("", "{id}", new { controller = "Entry", action = "Show" });
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
@@ -56,6 +61,15 @@ namespace Blog.Web.UI
             RegisterRoutes(RouteTable.Routes);
 
             ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(this.container));
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e) 
+        {
+            string lowercaseURL = String.Concat(Request.Url.Scheme, "://", HttpContext.Current.Request.Url.Authority, HttpContext.Current.Request.Url.AbsolutePath);
+            if (Regex.IsMatch(lowercaseURL, @"[A-Z]"))
+            {
+                System.Web.HttpContext.Current.Response.RedirectPermanent(String.Concat(lowercaseURL.ToLower(), HttpContext.Current.Request.Url.Query));
+            }
         }
 
         public override void Dispose()

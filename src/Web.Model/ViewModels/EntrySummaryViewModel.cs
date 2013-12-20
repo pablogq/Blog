@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Blog.Web.Model.ViewModels
 {
-    public class EntrySummaryViewModel
+    public class EntrySummaryViewModel : LayoutViewModel
     {
         public string Slug { get; set; }
         public string Title { get; set; }

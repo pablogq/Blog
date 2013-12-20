@@ -1,0 +1,55 @@
+﻿@model EditorViewModel
+
+@{
+    bool isCreating = String.IsNullOrWhiteSpace(this.Model.Slug);
+    string header = isCreating ? "New Post" : "Edit Post";
+    ViewBag.Title = isCreating ? header : String.Format("{0} - {1}", header, this.Model.Title) ;
+}
+
+<article class="form">
+    <h1>@header</h1>
+    @using (this.Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Slug);
+        
+        <div class="field long">
+            @Html.LabelFor(model => model.Title)
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+        
+                <div class="field long markdown">
+            @Html.TextAreaFor(model => model.Content, new { @class = "text-box" })
+            @Html.ValidationMessageFor(m => m.Content)
+        </div>
+        
+        <div class="field">
+            @Html.LabelFor(model => model.IsPublished)<br />
+            @Html.RadioButtonFor(model => model.IsPublished, true) Yes<br />
+            @Html.RadioButtonFor(model => model.IsPublished, false) No<br />
+        </div>
+        
+        <div class="field">
+            <input type="submit" value="Save" />
+            @Html.ActionLink("< Back", "Index", "Home", null, new { @class = "button" })
+        </div>
+    }
+</article>
+
+@section scripts
+{
+    <script>
+        var alertOnLeaving = true;
+        window.onbeforeunload = function () {
+            return alertOnLeaving ? 'If you navigate away from this page you\'ll lose any unsaved changes' : null;
+        }
+
+        $(".form form").submit(function () {
+            if ($(this).valid()) { alertOnLeaving = false; }
+        });
+
+    </script>
+}
+
