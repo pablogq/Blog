@@ -11,8 +11,6 @@ namespace Blog.Web.Model.Infrastructure.Security
     {
         public User(string friendlyName, bool isAuthenticated, bool isAdmin)
         {
-            Guard.IsNotNullOrEmpty(friendlyName, "friendlyName");
-
             this.FriendlyName = friendlyName;
             this.IsAuthenticated = isAuthenticated;
             this.IsAdmin = isAdmin;

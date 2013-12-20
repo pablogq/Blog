@@ -25,7 +25,8 @@ namespace Blog.Web.UI.Windsor.Installers
                                         .AsFactory()
                                         .LifestylePerWebRequest(),
                                Component.For<IEntryClient>()
-                                        .UsingFactoryMethod(ctx => SoapClientBase<IEntryClient>.Create("http://localhost:57742/Entry.svc")));
+                                        .UsingFactoryMethod(ctx => SoapClientBase<IEntryClient>.Create("http://localhost:57742/Entry.svc"))
+                                        .LifestyleTransient());
         }
     }
 }

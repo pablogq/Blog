@@ -1,0 +1,29 @@
+﻿@model EntryViewModel
+
+@{
+    ViewBag.Title = this.Model.Title;
+}
+
+<article class="entry">
+    @if (this.Model.User.IsAdmin) 
+    {
+        <div class="admin-box text-links">
+            Admin: @Html.ActionLink("Edit", "Edit", "Entry", new { id = Model.Slug }, null) 
+                   @Html.ActionLink("Delete", "Delete", "Entry", new { id = Model.Slug }, null) 
+        </div>
+    }
+
+    <h1>@Model.Title</h1>
+    
+    <div class="text-links">
+        @this.Html.Safe(this.Model.Content)
+    </div>
+
+    <div class="entry-date">
+        @this.Model.CreatedAt
+    </div>
+
+    <p>
+        @this.Html.ActionLink("Read more posts »", "Index", "Home")
+    </p>
+</article>

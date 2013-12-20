@@ -21,5 +21,7 @@ namespace Blog.ServiceModel
         public string Author { get; set; }
         [DataMember]
         public DateTime CreatedAt { get; set; }
+        [DataMember]
+        public bool IsPublished { get; set; }
     }
 }

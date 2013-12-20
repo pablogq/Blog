@@ -45,6 +45,7 @@
     <Compile Include="ContentTransformator.cs" />
     <Compile Include="EmptyMaybe.cs" />
     <Compile Include="Extensions\CustomAttributeProviderExtensions.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\GenericTypeExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />

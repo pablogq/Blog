@@ -62,6 +62,7 @@ namespace Blog.Domain.Model
         }
 
         public DateTime CreatedAt { get; set; }
+        public bool IsPublished { get; set; }
 
         public void Update(Entry entry) 
         {
