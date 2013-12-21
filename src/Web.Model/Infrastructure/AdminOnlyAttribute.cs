@@ -38,11 +38,15 @@ namespace Blog.Web.Model.Infrastructure
         {
             Guard.IsNotNull(filterContext, "filterContext");
 
-            if (this.Authorize(filterContext.HttpContext)) 
+            if (this.Authorize(filterContext.HttpContext))
             {
                 HttpCachePolicyBase cache = filterContext.HttpContext.Response.Cache;
                 cache.SetProxyMaxAge(new TimeSpan(0L));
                 cache.AddValidationCallback(this.CacheValidateHandler, null);
+            }
+            else 
+            {
+                this.HandleUnauthorizedRequest(filterContext);
             }
         }
 
@@ -54,8 +58,8 @@ namespace Blog.Web.Model.Infrastructure
             {
                 return true;
             }
-            //return this.Services.User.Current.IsAdmin;
             return true;
+            //return this.Services.User.Current.IsAdmin;
         }
 
         protected virtual HttpValidationStatus OnCacheAuthorization(HttpContextBase httpContext) 

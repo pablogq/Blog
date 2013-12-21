@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ConfigurationContract.cs" />
+    <Compile Include="Configuration\IConfigurationClient.cs" />
+    <Compile Include="Configuration\IConfigurationService.cs" />
     <Compile Include="DefaultClientFactory.cs" />
     <Compile Include="Entry\EntryContract.cs" />
     <Compile Include="Entry\IEntryClient.cs" />

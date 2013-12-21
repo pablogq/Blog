@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Blog.ServiceModel
 {
-    [ServiceContract(Namespace = "http://www.blog-pablogq.com/entry")]
+    [ServiceContract(Namespace = "http://www.blog-pgq.com/entry")]
     public interface IEntryService : IService
     {
         [OperationContract]

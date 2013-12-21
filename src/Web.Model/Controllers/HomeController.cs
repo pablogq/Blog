@@ -24,9 +24,12 @@ namespace Blog.Web.Model.Controllers
 
             HomeViewModel model = new HomeViewModel
             {
-                Entries = entries.Select(this.Services.Mapper.Map<EntrySummaryViewModel, EntryContract>)
+                Entries = entries.OrderByDescending(e => e.CreatedAt)
+                                 .Take(5)
+                                 .Select(this.Services.Mapper.Map<EntrySummaryViewModel, EntryContract>)
                                  .ToList()
             };
+            this.ViewBag.Message = "Artículos Recientes";
             return this.View(model);
         }
     }

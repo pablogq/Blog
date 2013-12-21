@@ -2,10 +2,13 @@
 
 @{
     bool isCreating = String.IsNullOrWhiteSpace(this.Model.Slug);
-    string header = isCreating ? "New Post" : "Edit Post";
+    string header = isCreating ? "Publicación Nueva" : "Editar Publicación";
     ViewBag.Title = isCreating ? header : String.Format("{0} - {1}", header, this.Model.Title) ;
 }
-
+@section css
+{
+    <link href="@this.Url.Content("~/Content/js/wmd/wmd.css")" rel="stylesheet" />
+}
 <article class="form">
     <h1>@header</h1>
     @using (this.Html.BeginForm()) 
@@ -20,36 +23,43 @@
             @Html.ValidationMessageFor(model => model.Title)
         </div>
         
-                <div class="field long markdown">
+        <div class="field long markdown">
             @Html.TextAreaFor(model => model.Content, new { @class = "text-box" })
             @Html.ValidationMessageFor(m => m.Content)
         </div>
         
         <div class="field">
-            @Html.LabelFor(model => model.IsPublished)<br />
-            @Html.RadioButtonFor(model => model.IsPublished, true) Yes<br />
-            @Html.RadioButtonFor(model => model.IsPublished, false) No<br />
+            @Html.LabelFor(model => model.IsPublished):
+            @Html.RadioButtonFor(model => model.IsPublished, true) Si |
+            @Html.RadioButtonFor(model => model.IsPublished, false) No
         </div>
         
         <div class="field">
-            <input type="submit" value="Save" />
-            @Html.ActionLink("< Back", "Index", "Home", null, new { @class = "button" })
+            <input type="submit" value="Save" class="btn btn-default" />
+            @Html.ActionLink("< Atrás", "Index", "Home", null, new { @class = "btn btn-info" })
         </div>
     }
 </article>
 
 @section scripts
 {
+    <script src="@this.Url.Content("~/Content/js/wmd/jquery.wmd.js")"></script>
+
     <script>
         var alertOnLeaving = true;
         window.onbeforeunload = function () {
-            return alertOnLeaving ? 'If you navigate away from this page you\'ll lose any unsaved changes' : null;
+            return alertOnLeaving ? 'Si abandona esta página perderá todos los cambios.' : null;
         }
 
         $(".form form").submit(function () {
             if ($(this).valid()) { alertOnLeaving = false; }
         });
 
+        $("textarea#Content").wmd({
+            "preview": true,
+            "helpLink": "http://daringfireball.net/projects/markdown/",
+            "helpHoverTitle": "Ayuda sobre Markdown",
+        });
     </script>
 }
 

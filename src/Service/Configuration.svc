@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Blog.Service.ConfigurationService" CodeBehind="Blog.Service.ConfigurationService.cs" Factory="Blog.Service.Windsor.BlogServiceHostFactory" %>

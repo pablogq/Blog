@@ -1,6 +1,7 @@
 ﻿#region Libraries
 using AutoMapper;
 using Blog.ServiceModel;
+using Blog.Web.Model.Infrastructure.Configuration;
 using Blog.Web.Model.ViewModels;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
@@ -24,13 +25,23 @@ namespace Blog.Web.UI.Windsor.Installers
             
             Mapper.CreateMap<EntryContract, EntrySummaryViewModel>()
                   .ForMember(destination => destination.CreatedAt, opt => opt.MapFrom(source => source.CreatedAt.ToDateString()))
-                  .ForMember(destination => destination.PrettyDate, opt => opt.MapFrom(source => source.CreatedAt.ToPrettyDate()));
+                  .ForMember(destination => destination.PrettyDate, opt => opt.MapFrom(source => source.CreatedAt.ToPrettyDate()))
+                  .ForMember(destination => destination.TruncatedContent, opt => opt.MapFrom(source => ContentTransformator.Current.Transform(source.Content).Truncate(300)));
 
             Mapper.CreateMap<EntryContract, EditorViewModel>()
                   .ReverseMap();
 
             Mapper.CreateMap<EntryContract, DeleteViewModel>()
                   .ReverseMap();
+
+            Mapper.CreateMap<ConfigurationContract, BlogConfiguration>();
+
+            Mapper.CreateMap<ConfigurationContract, ConfigurationViewModel>()
+                .ForMember(destination => destination.Admins, opt => opt.MapFrom(source => source.Admins.IsNullOrEmpty() ? String.Empty : String.Join(",", source.Admins)))
+                  .ReverseMap()
+                  .ForMember(destination => destination.Admins, opt => opt.MapFrom(source => source.Admins.IsNullOrEmpty() ? Enumerable.Empty<string>().ToList() : source.Admins.Split(',').ToList()));
+
+
         }
     }
 }

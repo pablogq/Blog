@@ -25,11 +25,26 @@ namespace Blog.Web.Model.Controllers
             EntryContract entry = this.Services.EntryService.Get(client => client.Get(slug));
             if (entry.IsNull()) 
             {
-                return this.HttpNotFound("Entry not found");
+                return this.HttpNotFound("Publicación no encotrada");
             }
 
             EntryViewModel model = this.Services.Mapper.Map<EntryViewModel, EntryContract>(entry);
             return this.View(model);
+        }
+
+        [HttpGet]
+        public ActionResult Entries()
+        {
+            IEnumerable<EntryContract> entries = this.Services.EntryService.Get(client => client.List());
+
+            HomeViewModel model = new HomeViewModel
+            {
+                Entries = entries.OrderByDescending(e => e.CreatedAt)
+                                 .Select(this.Services.Mapper.Map<EntrySummaryViewModel, EntryContract>)
+                                 .ToList()
+            };
+            this.ViewBag.Message = "Todos los Artículos";
+            return this.View("Index", model);
         }
 
         [HttpGet, AdminOnly]
@@ -46,7 +61,7 @@ namespace Blog.Web.Model.Controllers
             EntryContract existintEntry = this.Services.EntryService.Get(client => client.Get(slug));
             if (existintEntry.IsNotNull()) 
             {
-                this.ModelState.AddModelError("Title", "Sorry, a post already exists with the slug '{0}', please change the title.".FormatWith(slug));
+                this.ModelState.AddModelError("Title", "Lo siento, ya existe una publicación con el slug '{0}', por favor cambiar el título.".FormatWith(slug));
             }
 
             if (!this.ModelState.IsValid) 
@@ -116,7 +131,7 @@ namespace Blog.Web.Model.Controllers
             EntryContract entry = this.Services.EntryService.Get(client => client.Get(slug));
             if (entry.IsNull())
             {
-                return this.HttpNotFound("Entry not found");
+                return this.HttpNotFound("Publicación no encotrada");
             }
 
             DeleteViewModel model = this.Services.Mapper.Map<DeleteViewModel, EntryContract>(entry);
@@ -131,10 +146,11 @@ namespace Blog.Web.Model.Controllers
             {
                 entry.CreatedAt = DateTime.Now;
             }
+
             Response response = this.Services.EntryService.Get(client => client.Save(entry));
             if (!response.Success)
             {
-                this.ModelState.AddModelError("Error", "There was a problem posting the entry.");
+                this.ModelState.AddModelError("Error", "Hubo un problema guardando la publicación.");
             }
 
             return response.Success;

@@ -1,0 +1,48 @@
+﻿@model ConfigurationViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<article class="form">
+    <h1>Configuración</h1>
+    @using (this.Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+                
+        <div class="field">
+            @Html.LabelFor(model => model.Title)
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+        
+        <div class="field">
+            @Html.LabelFor(model => model.Heading)
+            @Html.EditorFor(model => model.Heading)
+            @Html.ValidationMessageFor(model => model.Heading)
+        </div>
+        
+        <div class="field">
+            @Html.LabelFor(model => model.Admins)
+            @Html.EditorFor(model => model.Admins)
+            @Html.ValidationMessageFor(model => model.Admins)
+        </div>
+        
+        <div class="field">
+            @Html.LabelFor(model => model.Twitter)
+            @Html.EditorFor(model => model.Twitter)
+            @Html.ValidationMessageFor(model => model.Twitter)
+        </div>
+        
+        <div class="field">
+            @Html.LabelFor(model => model.MetaDescription)
+            @Html.EditorFor(model => model.MetaDescription)
+            @Html.ValidationMessageFor(model => model.MetaDescription)
+        </div>
+        
+        <div class="field">
+            <input type="submit" value="Save" class="btn btn-default" />
+            @Html.ActionLink("< Atrás", "Index", "Home", null, new { @class = "btn btn-info" })
+        </div>
+    }
+</article>

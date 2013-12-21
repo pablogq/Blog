@@ -15,14 +15,15 @@ namespace Blog.Web.Model.ViewModels
         public string Slug { get; set; }
 
         [AllowHtml]
-        [Required(ErrorMessage = "Please enter the title of this post.")]
+        [Required(ErrorMessage = "Por favor ingresar el título de la publicación.")]
+        [DisplayName("Título")]
         public string Title { get; set; }
 
         [AllowHtml]
-        [Required(ErrorMessage = "Please enter some content.")]
+        [Required(ErrorMessage = "Por favor ingresar el contendio.")]
         public string Content { get; set; }
 
-        [DisplayName("Published")]
+        [DisplayName("Publicado?")]
         public bool IsPublished { get; set; }
     }
 }

@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -46,24 +47,38 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\ConfigureController.cs" />
     <Compile Include="Controllers\EntryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Extensions\CacheExtensions.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Infrastructure\AdminOnlyAttribute.cs" />
+    <Compile Include="Infrastructure\Configuration\BlogConfiguration.cs" />
+    <Compile Include="Infrastructure\Configuration\CachedConfigurationClientDecorator.cs" />
+    <Compile Include="Infrastructure\Configuration\ConfigurationManagerWrapper.cs" />
+    <Compile Include="Infrastructure\Configuration\IConfigurationManager.cs" />
+    <Compile Include="Infrastructure\Configuration\IConfigurationProvider.cs" />
+    <Compile Include="Infrastructure\Configuration\ServiceBackedConfigurationProvider.cs" />
     <Compile Include="Infrastructure\DefaultApplicationServices.cs" />
     <Compile Include="Infrastructure\DefaultHttpContextProvider.cs" />
     <Compile Include="Infrastructure\IApplicationServices.cs" />
     <Compile Include="Infrastructure\IHttpContextProvider.cs" />
     <Compile Include="Infrastructure\Security\AuthorizerBase.cs" />
+    <Compile Include="Infrastructure\Security\CompositeAuthenticator.cs" />
     <Compile Include="Infrastructure\Security\CompositeAuthorizer.cs" />
+    <Compile Include="Infrastructure\Security\ConfigFileAuthorizer.cs" />
     <Compile Include="Infrastructure\Security\FormsAuthenticationWrapper.cs" />
     <Compile Include="Infrastructure\Security\FormsIdentityUserProvider.cs" />
+    <Compile Include="Infrastructure\Security\IAuthenticator.cs" />
     <Compile Include="Infrastructure\Security\IAuthorizer.cs" />
     <Compile Include="Infrastructure\Security\IFormsAuthentication.cs" />
     <Compile Include="Infrastructure\Security\IUserProvider.cs" />
+    <Compile Include="Infrastructure\Security\FixedTokenAuthenticator.cs" />
     <Compile Include="Infrastructure\Security\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ConfigurationViewModel.cs" />
     <Compile Include="ViewModels\EditorViewModel.cs" />
     <Compile Include="ViewModels\DeleteViewModel.cs" />
     <Compile Include="ViewModels\EntrySummaryViewModel.cs" />

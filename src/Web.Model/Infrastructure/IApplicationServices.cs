@@ -1,5 +1,6 @@
 ﻿#region Libraries
 using Blog.ServiceModel;
+using Blog.Web.Model.Infrastructure.Configuration;
 using Blog.Web.Model.Infrastructure.Security;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Blog.Web.Model.Infrastructure
     {
         IUserProvider User { get; }
         IHttpContextProvider HttpContext { get; }
+        IConfigurationProvider Configuration { get; }
         IMapper Mapper { get; }
         IClientFactory<IEntryClient> EntryService { get; }
     }

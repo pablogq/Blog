@@ -13,6 +13,7 @@ namespace Blog.Web.Model.ViewModels
         public string Title { get; set; }
         public string CreatedAt { get; set; }
         public string PrettyDate { get; set; }
+        public string TruncatedContent { get; set; }
         public bool IsPublished { get; set; }
     }
 }

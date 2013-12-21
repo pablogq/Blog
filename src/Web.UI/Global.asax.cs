@@ -5,6 +5,7 @@ using Castle.Windsor;
 using Castle.Windsor.Installer;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -44,7 +45,7 @@ namespace Blog.Web.UI
                 constraints: new { httpMethod = new HttpMethodConstraint("GET", "POST") },
                 namespaces: namespaces);
             routes.MapRoute("", "search", new { controller = "Search", action = "Index" });
-            routes.MapRoute("", "contact", new { controller = "Contact", action = "Index" });
+            routes.MapRoute("", "configure", new { controller = "Configure", action = "Edit" });
             routes.MapRoute("", "{id}", new { controller = "Entry", action = "Show" });
             routes.MapRoute(
                 name: "Default",
@@ -61,6 +62,9 @@ namespace Blog.Web.UI
             RegisterRoutes(RouteTable.Routes);
 
             ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(this.container));
+
+            FilterProviders.Providers.Remove(FilterProviders.Providers.Single(f => f is FilterAttributeFilterProvider));
+            FilterProviders.Providers.Add(new WindsorFilterAttributeFilterProvider(this.container));
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e) 
@@ -70,6 +74,7 @@ namespace Blog.Web.UI
             {
                 System.Web.HttpContext.Current.Response.RedirectPermanent(String.Concat(lowercaseURL.ToLower(), HttpContext.Current.Request.Url.Query));
             }
+            System.Threading.Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag("es");
         }
 
         public override void Dispose()

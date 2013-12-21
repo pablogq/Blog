@@ -3,11 +3,11 @@
     @if (this.Model.User.IsAdmin) 
     {
         <div class="admin-box text-links">
-            Admin: @Html.ActionLink("New Post", "Add", "Entry")
+            Admin: @Html.ActionLink("New Post", "Create", "Entry")
         </div>
     }
 
-    <h1>Latest Posts</h1>
+    <h1>@this.ViewBag.Message</h1>
 
     <ul class="entry-list text-links">
         @foreach (EntrySummaryViewModel entry in this.Model.Entries)
@@ -17,12 +17,15 @@
                 continue; 
             }
             
-            <li>
+            <li class="well">
                 @this.Html.ActionLink(entry.Title, "Show", "Entry", new { id = entry.Slug }, null)
+                <div>
+                    @this.Html.Safe(entry.TruncatedContent)
+                </div>
                 <div class="date">@entry.CreatedAt</div>
                 @if (!entry.IsPublished) 
                 {
-                    <div class="publication-status">(Unpublished)</div>
+                    <div class="publication-status">(No publicado)</div>
                 }
             </li>
         }

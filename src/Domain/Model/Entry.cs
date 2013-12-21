@@ -71,6 +71,7 @@ namespace Blog.Domain.Model
             this.Title = entry.Title;
             this.Content = entry.Content;
             this.Author = entry.Author;
+            this.IsPublished = entry.IsPublished;
         }
 
         public bool Equals(Entry other)

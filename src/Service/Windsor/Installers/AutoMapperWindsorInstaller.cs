@@ -20,6 +20,9 @@ namespace Blog.Service.Windsor.Installers
             Mapper.CreateMap<EntryContract, Entry>()
                   .ConstructUsing((EntryContract contract) => new Entry(contract.Slug, contract.Title, contract.Content, contract.Author))
                   .ReverseMap();
+
+            Mapper.CreateMap<ConfigurationContract, Configuration>()
+                  .ReverseMap();
         }
     }
 }

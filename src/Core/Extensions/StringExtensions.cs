@@ -109,5 +109,25 @@ namespace Blog
 
             return value.ToLower();
         }
+
+        /// <summary>
+        /// Capitalize the string.
+        /// </summary>
+        /// <param name="string">The string.</param>
+        /// <returns>The string capitalized.</returns>
+        public static string Capitalize(this string @string)
+        {
+            if (@string.IsNullOrEmpty())
+            {
+                return String.Empty;
+            }
+
+            if (@string.Length == 1)
+            {
+                return @string.ToUpperInvariant();
+            }
+
+            return String.Concat(@string.Substring(0, 1).ToUpperInvariant(), @string.Substring(1));
+        }
     }
 }

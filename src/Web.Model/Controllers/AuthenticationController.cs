@@ -1,10 +1,12 @@
 ﻿#region Libraries
 using Blog.Web.Model.Infrastructure;
+using Blog.Web.Model.Infrastructure.Security;
 using Blog.Web.Model.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 #endregion
 
@@ -12,33 +14,51 @@ namespace Blog.Web.Model.Controllers
 {
     public class AuthenticationController : LayoutController
     {
-        public AuthenticationController(IApplicationServices applicationServices)
+        private readonly IFormsAuthentication formsAuthentication;
+        private readonly IAuthenticator authenticator;
+
+        public AuthenticationController(IApplicationServices applicationServices, IFormsAuthentication formsAuthentication, IAuthenticator authenticator)
             : base(applicationServices)
-        { }
-
-        public ActionResult Login(string returnUrl = null) 
         {
-            if (this.Request.IsAuthenticated)
-            {
-                return this.RedirectFromLogin(returnUrl);
-            }
+            Guard.IsNotNull(formsAuthentication, "formsAuthentication");
+            Guard.IsNotNull(authenticator, "authenticator");
 
-            return this.View(new LoginViewModel { ReturnUrl = returnUrl });
+            this.formsAuthentication = formsAuthentication;
+            this.authenticator = authenticator;
         }
 
-        [HttpPost]
+
+
+        [HttpGet]
         public ActionResult Login(LoginViewModel model)
         {
-            return this.View();
+            model.ReturnUrl = this.ResolveReturnUrl(model.ReturnUrl);
+            if (this.authenticator.Authenticate(model.Token))
+            {
+                this.formsAuthentication.SetAuthenticationCookie("pablogq", true, "Pablo Guerrero");
+                return this.Redirect(model.ReturnUrl);
+            }
+
+            model.Message = "Acceso denegado!";
+            return this.View(model);
         }
 
-        private ActionResult RedirectFromLogin(string returnUrl)
+        [HttpGet]
+        public ActionResult Logout(string returnUrl = null) 
         {
-            if (returnUrl.IsNullOrEmpty())
-            {
-                return this.RedirectToAction("", "");
-            }
+            this.formsAuthentication.SignOut();
+
+            returnUrl = this.ResolveReturnUrl(returnUrl);
             return this.Redirect(returnUrl);
+        }
+
+        private string ResolveReturnUrl(string returnUrl)
+        {
+            if (returnUrl.IsNotNullOrEmpty())
+            {
+                return returnUrl;
+            }
+            return this.Url.Action("Index", "Home");
         }
     }
 }

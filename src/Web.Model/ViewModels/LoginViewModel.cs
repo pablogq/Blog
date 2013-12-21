@@ -9,6 +9,8 @@ namespace Blog.Web.Model.ViewModels
 {
     public class LoginViewModel : LayoutViewModel
     {
+        public string Token { get; set; }
         public string ReturnUrl { get; set; }
+        public string Message { get; set; }
     }
 }

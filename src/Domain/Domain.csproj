@@ -44,10 +44,13 @@
     <Compile Include="Infrastructure\Persistence\IStorage.cs" />
     <Compile Include="Infrastructure\Persistence\IStoreReader.cs" />
     <Compile Include="Infrastructure\Persistence\Repository.cs" />
+    <Compile Include="Model\Configuration.cs" />
     <Compile Include="Model\Entry.cs" />
     <Compile Include="Model\IdAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ConfigurationDomainService.cs" />
     <Compile Include="Services\EntryDomainService.cs" />
+    <Compile Include="Services\IConfigurationDomainService.cs" />
     <Compile Include="Services\IEntryDomainService.cs" />
   </ItemGroup>
   <ItemGroup>

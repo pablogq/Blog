@@ -143,9 +143,18 @@
     <Compile Include="Windsor\Installers\ServiceModelWindsorInstaller.cs" />
     <Compile Include="Windsor\Installers\WebWindsorInstaller.cs" />
     <Compile Include="Windsor\WindsorControllerFactory.cs" />
+    <Compile Include="Windsor\WindsorFilterAttributeFilterProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\base.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\js\bootstrap.min.js" />
+    <Content Include="Content\js\jquery.min.js" />
+    <Content Include="Content\js\wmd\images\wmd-buttons.png" />
+    <Content Include="Content\js\wmd\jquery-wmd-plugin.js" />
+    <Content Include="Content\js\wmd\jquery.wmd.js" />
+    <Content Include="Content\js\wmd\jquery.wmd.min.js" />
+    <Content Include="Content\js\wmd\wmd.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -157,6 +166,8 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\img\" />
+    <Folder Include="Views\Home\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
     <Folder Include="Windsor\Interceptors\" />
@@ -193,7 +204,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Entry\Show.cshtml" />
@@ -206,6 +217,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Entry\Delete.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Configure\Edit.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

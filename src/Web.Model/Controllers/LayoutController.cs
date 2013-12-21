@@ -50,6 +50,7 @@ namespace Blog.Web.Model.Controllers
         private void EnsureLayoutViewModelDependencies(LayoutViewModel viewModel) 
         {
             viewModel.User = this.Services.User.Current;
+            viewModel.Configuration = this.Services.Configuration.Current;
         }
     }
 }
